@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+cd "$(dirname "$0")"/..
+
+docker build -t pg-schema-migration:test -f Dockerfile .
+
+docker-compose -p pg-schema-migration \
+               -f docker-compose.yml run test \
+               sh -c "ruby test/pg/schema_migration_spec.rb"
